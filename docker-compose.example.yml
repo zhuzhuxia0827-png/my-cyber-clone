@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    ports:
+      - "80:8501"
+    environment:
+      - DEEPSEEK_API_KEY=你的KEY填这里
+    restart: unless-stopped

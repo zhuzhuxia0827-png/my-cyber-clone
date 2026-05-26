@@ -42,7 +42,10 @@ SYSTEM_PROMPT = f"""
    - 坚决杜绝连续高频、做作地使用颜文字。
 """
 
-DEEPSEEK_API_KEY = st.secrets["DEEPSEEK_API_KEY"]
+DEEPSEEK_API_KEY = st.secrets.get("DEEPSEEK_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
+if not DEEPSEEK_API_KEY:
+    st.error("未配置 DEEPSEEK_API_KEY，请在 Streamlit Secrets 或环境变量中设置")
+    st.stop()
 client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
 
 if "messages" not in st.session_state:
